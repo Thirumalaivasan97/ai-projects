@@ -1,71 +1,85 @@
 # Import datetime so we can automatically capture today's date
 from datetime import datetime
 
-# Import csv so we can save our progress into a CSV file
+# Import csv so we can save your daily progress into a CSV file
 import csv
 
 # Import os so we can check whether the CSV file already exists
 import os
 
 
-# This is the file where your daily progress will be saved
+# This is the private file where your daily progress will be saved
 file_name = "daily_progress.csv"
 
 
-# This dictionary stores all the answers you type in
-# Each item has a column name on the left and your answer on the right
-questions = {
+# These are your upgraded AI Life OS daily check-in questions
+# Each key becomes a column in the CSV file
+daily_entry = {
     # Automatically stores today's date in YYYY-MM-DD format
     "date": datetime.now().strftime("%Y-%m-%d"),
 
-    # Tracks your energy level for the day
+    # Tracks your physical/mental energy
     "energy_level": input("Energy level today (1-10): "),
 
-    # Captures your main focus or goal for the day
-    "main_goal": input("What is your main goal today? "),
+    # Captures your main focus for the day
+    "main_goal": input("What was your main goal today? "),
 
-    # Tracks anything you learned or built related to AI
-    "ai_learning": input("What did you learn or build in AI today? "),
+    # Tracks progress in AI, Python, automation, or product-building
+    "ai_python_product": input("What did you do for AI/Python/product-building today? "),
 
-    # Tracks progress related to work, career, applications, leadership, etc.
-    "work_progress": input("What progress did you make at work/career? "),
+    # Tracks work, career, leadership, or becoming secure/permanent
+    "work_career": input("What did you do for work/career/leadership today? "),
 
-    # Tracks health actions like gym, food, sleep, walking, etc.
-    "health": input("What did you do for health/gym/food? "),
+    # Tracks gym, food, sleep, health, or body transformation
+    "health_body": input("What did you do for gym/health/body/food/sleep today? "),
 
-    # Tracks prayer, mindset, reflection, gratitude, discipline, etc.
-    "faith_mindset": input("Prayer/reflection/mindset note: "),
+    # Tracks faith, prayer, purity, obedience, and mindset
+    "faith_purity_mindset": input("What did you do for faith/prayer/purity/mindset today? "),
 
-    # Captures your biggest win for the day
-    "biggest_win": input("Biggest win today: "),
+    # Captures your biggest positive moment
+    "biggest_win": input("What was your biggest win today? "),
 
-    # Captures the biggest problem or blocker you faced
-    "blocker": input("Biggest blocker today: "),
+    # Captures blocker, temptation, distraction, or weakness
+    "blocker_temptation": input("What was your biggest blocker/temptation/distraction today? "),
 
-    # Captures the next action you should take
-    "next_step": input("What is the next best action? ")
+    # Checks whether you drifted from your standards or priorities
+    "drift_today": input("Did you drift today? If yes, where and why? "),
+
+    # Tracks discipline even when motivation was low
+    "disciplined_action": input("Did you take one disciplined action even when you did not feel like it? "),
+
+    # Tracks the environment that helped or hurt you
+    "environment": input("What environment helped or hurt you today? "),
+
+    # Identifies one behaviour to stop
+    "thing_to_stop": input("What is one thing you need to stop doing? "),
+
+    # Defines tomorrow's next step
+    "next_step": input("What is your next step for tomorrow? "),
+
+    # Ends with prayer/reflection
+    "prayer_reflection": input("What is one prayer or reflection for tonight? ")
 }
 
 
 # Check whether the CSV file already exists
-# If it does not exist, we need to create it and add column headers
 file_exists = os.path.isfile(file_name)
 
 
 # Open the CSV file in append mode
-# Append mode means new entries will be added at the bottom instead of replacing old data
+# This adds a new row every time you run the tracker
 with open(file_name, mode="a", newline="", encoding="utf-8") as file:
 
-    # Create a CSV writer that knows the column names from our dictionary
-    writer = csv.DictWriter(file, fieldnames=questions.keys())
+    # Create a CSV writer using the dictionary keys as column names
+    writer = csv.DictWriter(file, fieldnames=daily_entry.keys())
 
-    # If this is the first time creating the file, write the column headers
+    # If the CSV file does not exist yet, add the column headers
     if not file_exists:
         writer.writeheader()
 
-    # Save today's answers as a new row in the CSV file
-    writer.writerow(questions)
+    # Save today's answers as a new row
+    writer.writerow(daily_entry)
 
 
-# Show confirmation message after saving
-print("Daily progress saved successfully.")
+# Confirm the entry has been saved
+print("AI Life OS daily check-in saved successfully.")
